@@ -5,7 +5,7 @@ const port = 3000
 const mongoose = require('mongoose');
 app.use(express.urlencoded({ extended: true }));
 const User = require("./models/customerSchema")
-var myRes
+var myRes = []
 
 app.use(express.static('public'))
 
@@ -14,7 +14,14 @@ app.set('view engine', 'ejs')
 
 //Get request
 app.get('/', (req, res) => {
-  res.render("index", {})
+  User.find().then(result =>{
+    myRes = result
+    //console.log(myRes)
+
+  }).catch(err =>{
+    console.log(err)
+  })
+  res.render("index", {myRes : myRes})
 
 })
 
@@ -39,7 +46,7 @@ app.post('/user/add.html', (req, res) => {
   const user = new User(req.body)
   user.save()
   .then(() => {
-    res.redirect("/user/add.html")
+    res.redirect("/")
   })
   .catch(error => {
     console.log(error)
