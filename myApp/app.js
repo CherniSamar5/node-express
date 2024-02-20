@@ -82,3 +82,17 @@ liveReloadServer.server.once("connection", () => {
     liveReloadServer.refresh("/");
   }, 100);
 });
+
+
+app.get('/user/:id', (req, res) => {
+ 
+  User.findById(req.params.id)
+  .then((result)=>{
+    //console.log(result)
+    res.render("user/view" ,{obj : result})
+  }).catch((err) => {
+    console.log(err)
+  })
+
+})
+ 
