@@ -186,7 +186,7 @@
             aria-expanded="false"
           >
             <img
-              src="./img/me.JPG"
+              src="../img/me.JPG"
               alt=""
               width="32"
               height="32"
@@ -269,12 +269,12 @@
 
             <tr>
               <th scope="row">Created on</th>
-              <td>!!!!!!!!!!!!!!</td>
+              <td><%= moment(obj.createdAt).fromNow() %>  </td>
             </tr>
 
             <tr>
               <th scope="row">Last Update</th>
-              <td>!!!!!!!!!!!!!!</td>
+              <td><%= moment(obj.updatedAt).fromNow() %>  </td>
             </tr>
           </tbody>
         </table>

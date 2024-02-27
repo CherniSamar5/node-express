@@ -207,7 +207,11 @@
       <section class="w-100">
       <%- include('./Components/navbar.ejs') %>
 
-        <table
+        <% if (myRes.length === 0) 
+        { %>
+         <h1 style="text-align: center; margin-top: 4em; ">no data found </h1>
+        <% } else {  %> 
+          <table
           style="width: 99%"
           class="text-center mx-auto table mt-5 table-striped table-bordered"
         >
@@ -230,34 +234,38 @@
                 <td><%= element.gender %>	</td>
                 <td><%= element.country %></td>
                 <td><%= element.age %></td>
-                <td>1 days ago  </td>
+                <td><%= moment(element.updatedAt).fromNow() %>  </td>
                 <td>
                   <a
                     data-bs-toggle="tooltip"
                     data-bs-title="View details"
                     data-bs-placement="top"
                     class="btn btn-primary btn-sm"
-                    href="./user/<%=element._id%>"
-                    ><i class="bi bi-eye"></i
-                  ></a>
+                    href="./view/<%=element._id%>"
+                    ><i class="bi bi-eye"></i></a>
   
                   <a
                     data-bs-toggle="tooltip"
                     data-bs-title="Edit user"
                     data-bs-placement="top"
                     class="btn btn-primary btn-sm"
-                    href="./user/edit.html"
+                    href="./edit/<%=element._id%>"
                   >
                     <i class="bi bi-pencil"></i>
                   </a>
+                  <form 
+                  style="display: inline;"
+                  action="/edit/<%= element._id %>?_method=DELETE" method="post">
+
                   <button
                     data-bs-toggle="tooltip"
                     data-bs-title="Delete user"
                     data-bs-placement="top"
-                    class="btn btn-danger btn-sm"
-                  >
+                    class="btn btn-danger btn-sm">
+                  
                     <i class="bi bi-trash"></i>
                   </button>
+                  </form>
                 </td>
               </tr> 
             <% }) %>
@@ -265,6 +273,10 @@
       
           </tbody>
         </table>
+          <% } %>
+
+
+       
       </section>
     </main>
     <script src="./js/bootstrap.bundle.min.js"></script>
