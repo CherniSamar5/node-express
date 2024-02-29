@@ -89,8 +89,7 @@ app.get('/view/:id', (req, res) => {
 //Post request 
 app.post('/user/add.html', (req, res) => {
   //console.log(req.body)
-  const user = new User(req.body)
-  user.save()
+  User.create(req.body)
   .then(() => {
     res.redirect("/")
   })
@@ -112,6 +111,17 @@ app.delete("/edit/:id", (req, res) => {
   })
 }); 
 
+//put request
+app.put("/edit/:id" ,(req, res) => {
+  //  User.findByIdAndUpdate(req.params.id , req.body)
+  User.updateOne({_id : req.params.id} , req.body)
+  .then(()=>{
+    res.redirect("/")
+  })
+  .catch((err)=>{
+    console.log(err)
+  })
+})
 
 //Connect dataBase
 mongoose.connect("mongodb+srv://chernisamar:samar13653110@cluster0.pb5mryo.mongodb.net/all-data?retryWrites=true&w=majority")
